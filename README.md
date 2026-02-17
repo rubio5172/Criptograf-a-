@@ -1,14 +1,14 @@
-# Criptograf-a-
+# Criptografía.
 Repositorio para actividades de critografía Semestre 2026-2, Grupo 2
 
 Integrantes.
 
-Acosta Jacinto Alan
+1.- Acosta Jacinto Alan
 
-Acosta Porcayo Alan Omar
+2.- Acosta Porcayo Alan Omar
 
-Melendez Gomez Anuar
+3.- Melendez Gomez Anuar
 
-Velazquez Caudillo Osbaldo
+4.- Velazquez Caudillo Osbaldo
 
-Rubio Carmona Jose Angel
+5.- Rubio Carmona Jose Angel
