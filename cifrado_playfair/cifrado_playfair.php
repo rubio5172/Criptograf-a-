@@ -8,7 +8,7 @@ if (str_contains($palabra, 'ñ') || str_contains($llave, 'ñ')) {
     exit();
 }
 /*normalizando palabra */
-$palabra = str_replace(' ', '', strtolower($palabra));
+$palabra = str_replace('j', 'i', strtolower($palabra));
 $palabra_array = str_split($palabra); //generaos el array
 /*si tenemos una palabra impar entonces le agregamos una x al final  */
 if (count($palabra_array) % 2 === 1) {
