@@ -1,0 +1,81 @@
+:root {
+    --blanco: #ffffff;
+    --oscuro: #212121;
+    --primario: #ffc107;
+    --secundario: #0097a7;
+    --gris: #e2e8f0;
+    --grisClaro: #dfe9f3;
+    --azul: #2563eb;
+    
+}
+
+html{
+    font-size: 62.5%;
+    box-sizing: border-box; /*Hack para Box Model*/
+}
+
+body{
+    font-size: 16px;/* 1rem = 10px */ 
+    font-family: "Krub", sans-serif;
+    background-color: var(--grisClaro);
+}
+
+/*TIPOGRAFIA*/
+h1 {
+    font-size: 3.8rem;
+}
+
+h2 {
+    font-size: 2.8rem;
+}
+
+h1,h2,h3{
+    text-align: center;
+}
+
+
+.formulario{
+    background-color: var(--gris); /*con esto definimos el color y podemos ver el tamano que tiene */
+    width: min(60rem, 100%); /*min() se encarga de utilizar el valor pas pequeno*/
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 1px solid var(--azul);
+}
+
+.formulario fieldset{
+    border: none;
+}
+
+.formulario legend{
+    text-align: start; /*centrar*/
+    font-size: 1.4rem ; /*hacer mas grande la letra*/
+    text-transform: uppercase; /*lo transforma en mayusculas*/
+    font-weight: 700; /**que este en negritas**/
+    margin-bottom: 2rem ; /*un margen hacia abajo */
+    color: var(--azul);
+}
+
+.campo{
+    margin-bottom: 1rem ;
+    text-align: start;
+}
+
+
+.boton{
+
+    color: var(--secundario);
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 2rem; 
+    text-decoration: none; /*eliminar la linea de abajo*/
+    text-transform: uppercase; /*pasar de minusculas a mayusculas*/
+    font-weight: bold; /*el grosor de la letra, si se quiere mas negritas*/
+    border-radius: .5rem; /*el borde del boton*/
+    border: 1px solid var(--secundario);
+}
+
+.boton:hover{
+    color: var(--blanco);
+    background-color: var(--secundario);
+}
