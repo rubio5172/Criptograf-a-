@@ -9,12 +9,20 @@ if (str_contains($palabra, 'ñ') || str_contains($llave, 'ñ')) {
 }
 /*normalizando palabra */
 $palabra = str_replace('j', 'i', strtolower($palabra));
+$palabra=str_replace(' ','',$palabra);
 $palabra_array = str_split($palabra); //generaos el array
+
 /*si tenemos una palabra impar entonces le agregamos una x al final  */
 if (count($palabra_array) % 2 === 1) {
     array_push($palabra_array, 'x');
 }
-$palabra_divida = array_chunk($palabra_array, 2); /*dividimos el array en pares  */
+$palabra_divida = array_chunk($palabra_array, 2); /*dividimos el array en pares  */ 
+foreach ($palabra_divida as $indiceGrupo => $grupo) {
+    if($grupo[0]===$grupo[1]){
+       $palabra_divida[$indiceGrupo][1] = 'x';
+    }
+}
+
 $palabra_nueva = implode('', $palabra_array);
 
 $llave = str_replace('j', 'i', strtolower($llave)); //pasamos la llave a minusculas y si la llave tiene j la sustituimos por i
@@ -81,12 +89,12 @@ foreach ($palabra_divida as $indiceGrupo => $grupo) {
     if ($pos[$grupo[0]]['r'] === $pos[$grupo[1]]['r']) {
 
         //echo 'la letra '.$grupo[0].' y '.$grupo[1].' estan en la misma fila';
-        $palabra_cifrada .= $matriz[$pos[$grupo[0]]['r']][$pos[$grupo[0]]['c'] + 1] . $matriz[$pos[$grupo[1]]['r']][$pos[$grupo[1]]['c'] + 1];
+        $palabra_cifrada .= $matriz[$pos[$grupo[0]]['r']][($pos[$grupo[0]]['c'] + 1)%count($matriz)] . $matriz[$pos[$grupo[1]]['r']][($pos[$grupo[1]]['c'] + 1)%count($matriz)];
         //echo $palabra_cifrada;
 
     } else if ($pos[$grupo[0]]['c'] === $pos[$grupo[1]]['c']) {
         // echo 'la letra '.$grupo[0].' y '.$grupo[1].' estan en la misma COLUMNA';
-        $palabra_cifrada .= $matriz[$pos[$grupo[0]]['r'] + 1][$pos[$grupo[0]]['c']] . $matriz[$pos[$grupo[1]]['r'] + 1][$pos[$grupo[1]]['c']];
+        $palabra_cifrada .= $matriz[($pos[$grupo[0]]['r'] + 1)%count($matriz)][$pos[$grupo[0]]['c']] . $matriz[($pos[$grupo[1]]['r'] + 1)%count($matriz)][$pos[$grupo[1]]['c']];
         //echo $palabra_cifrada;
     } else {
         $palabra_cifrada .= $matriz[$pos[$grupo[0]]['r']][$pos[$grupo[1]]['c']] . $matriz[$pos[$grupo[1]]['r']][$pos[$grupo[0]]['c']];
@@ -94,7 +102,16 @@ foreach ($palabra_divida as $indiceGrupo => $grupo) {
 }
 
 echo '<strong>Palabra: </strong>' . $palabra . '<br>';
-echo '<strong>Nueva Palabra: </strong>' . $palabra_nueva . '<br>';
 echo '<strong>Llave: </strong>' . $llave . '<br>';
 echo '<strong>Palabra cifrada: </strong>' . $palabra_cifrada;
-echo '<br><a href="index.php">Regresar</a>';
+
+echo '<div id="mensaje" style="display: none;"><strong>Palabra Descifrada: </strong>' . $palabra_nueva . '</div>';
+echo '<br><button onclick="mostrar()">Descifrar</button>';
+?>
+
+<script>
+function mostrar() {
+   
+    document.getElementById('mensaje').style.display = 'block';
+}
+</script>

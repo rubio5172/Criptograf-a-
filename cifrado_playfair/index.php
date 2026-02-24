@@ -16,8 +16,9 @@
         <form action="cifrado_playfair.php" method="GET"  class="formulario">
             <fieldset>
                 <legend> Reglas: </legend> 
-                <legend> La letra ñ y j no son consideradas </legend> 
-                <legend> si la palabra o llave tiene la letra j es cambiada por una i </legend>
+                <legend> La letra ñ no es considerada </legend> 
+                <legend> La letra j e i comparten el mismo campo </legend>
+                <legend>Letra repedita en mismo digrafo la segunda se sustituye por x</legend>
                 <div class="campo">
                     <label>Palabra</label>
                     <input type="text" name="palabra">
@@ -28,6 +29,7 @@
                 </div>
 
                     <button type="submit" class ="boton">Cifrar</button>
+
             </fieldset>
         </form>
     </section>    
