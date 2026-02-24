@@ -67,7 +67,7 @@ h1,h2,h3{
     color: var(--secundario);
     padding: 1rem;
     margin-top: 1rem;
-    font-size: 2rem; 
+    font-size: 1.4rem; 
     text-decoration: none; /*eliminar la linea de abajo*/
     text-transform: uppercase; /*pasar de minusculas a mayusculas*/
     font-weight: bold; /*el grosor de la letra, si se quiere mas negritas*/
@@ -78,4 +78,5 @@ h1,h2,h3{
 .boton:hover{
     color: var(--blanco);
     background-color: var(--secundario);
+    cursor: pointer;
 }
