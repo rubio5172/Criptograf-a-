@@ -12,7 +12,7 @@
 
 <body>
     <section > 
-        <h2>Cibrado Playfair </h2> 
+        <h1>Cifrado Playfair </h1> 
         <form action="cifrado_playfair.php" method="GET"  class="formulario">
             <fieldset>
                 <legend> Reglas: </legend> 
