@@ -2,7 +2,7 @@
 $palabra = $_GET['palabra'] ?? '';
 $llave = $_GET['llave'] ?? '';
 
-if(str_contains($palabra,'ñ')|| str_contains($llave,'ñ')){
+if (str_contains($palabra, 'ñ') || str_contains($llave, 'ñ')) {
     echo "No se puede tener ñ";
     echo '<br><a href="index.php">Regresar</a>';
     exit();
@@ -15,7 +15,7 @@ if (count($palabra_array) % 2 === 1) {
     array_push($palabra_array, 'x');
 }
 $palabra_divida = array_chunk($palabra_array, 2); /*dividimos el array en pares  */
-$palabra_nueva= implode('',$palabra_array);
+$palabra_nueva = implode('', $palabra_array);
 
 $llave = str_replace('j', 'i', strtolower($llave)); //pasamos la llave a minusculas y si la llave tiene j la sustituimos por i
 $llave = str_replace(' ', '', $llave);
@@ -42,7 +42,11 @@ echo "<table border='1'  text-align: center; '>";
 foreach ($matriz as $fila) {
     echo "<tr>";
     foreach ($fila as $letra) {
-        echo "<td style='padding: 10px;'>$letra</td>";
+        if (in_array($letra, $llave_array)) {
+            echo "<td style='padding: 10px; background-color: blue; color: white;'>$letra</td>";
+        } else {
+            echo "<td style='padding: 10px;'>$letra</td>";
+        }
     }
     echo "</tr>";
 }
@@ -90,7 +94,7 @@ foreach ($palabra_divida as $indiceGrupo => $grupo) {
 }
 
 echo '<strong>Palabra: </strong>' . $palabra . '<br>';
-echo '<strong>Nueva Palabra: </strong>'.$palabra_nueva.'<br>';
+echo '<strong>Nueva Palabra: </strong>' . $palabra_nueva . '<br>';
 echo '<strong>Llave: </strong>' . $llave . '<br>';
 echo '<strong>Palabra cifrada: </strong>' . $palabra_cifrada;
-echo '<a href="index.php">Regresar</a>';
+echo '<br><a href="index.php">Regresar</a>';
