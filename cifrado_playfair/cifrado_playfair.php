@@ -1,4 +1,7 @@
 <?php
+
+use MathPHP\LinearAlgebra\MatrixFactory;
+
 $palabra = $_GET['palabra'] ?? '';
 $llave = $_GET['llave'] ?? '';
 
@@ -45,6 +48,7 @@ for ($i = 0; $i < 5; $i++) {
         $contador++;
     }
 }
+
 // mostramos la matriz
 echo "<table border='1'  text-align: center; '>";
 foreach ($matriz as $fila) {
