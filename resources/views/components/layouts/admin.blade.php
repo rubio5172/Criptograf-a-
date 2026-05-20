@@ -57,7 +57,7 @@
     <!-- Contenedor del Contenido Principal -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
         <div class="animate-fade-in">
-            <!-- AQUÍ LIVEWIRE INYECTA LA VISTA DE TU COMPONENTE (CrearAlumno, EditarAlumno, etc.) -->
+            <!-- AQUÍ LIVEWIRE INYECTA LA VISTA DEL COMPONENTE (CrearAlumno, EditarAlumno, etc.) -->
             {{ $slot }}
         </div>
     </main>
