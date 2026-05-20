@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Livewire\Admin\CrearCarrera;
+use App\Livewire\Admin\CrearAlumno;
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,6 +13,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/carreras/crear', CrearCarrera::class)->name('carreras.crear');
+    Route::get('/alumnos/crear', CrearAlumno::class)->name('alumnos.crear');
 
 });
 
