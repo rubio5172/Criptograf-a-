@@ -22,15 +22,25 @@
                 <div class="flex items-center space-x-8">
                   
                     <div class="shrink-0 flex items-center">
-                        <span class="text-lg font-bold tracking-tight text-gray-900">
+                        <a href="{{ route('admin.dashboard')}}"><span class="text-lg font-bold tracking-tight text-gray-900">
                             Servicio<span class="text-blue-600">Social</span>
-                        </span>
+                        </span></a>
                     </div>
                     <!-- Enlaces de Navegación -->
                     <div class="hidden sm:flex sm:space-x-4">
                         <a href="{{ route('admin.carreras.crear') }}"
                             class="border-b-2 border-blue-600 px-1 pt-1 text-sm font-medium text-gray-900">
                             Carreras
+                        </a>
+
+                                                <a href="{{ route('admin.alumnos.crear') }}"
+                            class="border-b-2 border-blue-600 px-1 pt-1 text-sm font-medium text-gray-900">
+                            Alumnos
+                        </a>
+
+                                                <a href="{{ route('admin.carreras.crear') }}"
+                            class="border-b-2 border-blue-600 px-1 pt-1 text-sm font-medium text-gray-900">
+                            Empresas/Instituciones
                         </a>
                         
                     </div>
