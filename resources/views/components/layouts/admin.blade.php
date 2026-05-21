@@ -28,17 +28,17 @@
                     </div>
                     <!-- Enlaces de Navegación -->
                     <div class="hidden sm:flex sm:space-x-4">
-                        <a href="{{ route('admin.carreras.crear') }}"
+                        <a href="{{ route('admin.carreras.index') }}"
                             class="border-b-2 border-blue-600 px-1 pt-1 text-sm font-medium text-gray-900">
                             Carreras
                         </a>
 
-                                                <a href="{{ route('admin.alumnos.crear') }}"
+                                                <a href="{{ route('admin.alumnos.index') }}"
                             class="border-b-2 border-blue-600 px-1 pt-1 text-sm font-medium text-gray-900">
                             Alumnos
                         </a>
 
-                                                <a href="{{ route('admin.carreras.crear') }}"
+                                                <a href="{{ route('admin.carreras.index') }}"
                             class="border-b-2 border-blue-600 px-1 pt-1 text-sm font-medium text-gray-900">
                             Empresas/Instituciones
                         </a>

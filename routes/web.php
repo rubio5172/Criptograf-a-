@@ -12,8 +12,9 @@ Route::get('/', function () {
 Route::prefix('admin')->name('admin.')->group(function(){
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/carreras/crear', CrearCarrera::class)->name('carreras.crear');
-    Route::get('/alumnos/crear', CrearAlumno::class)->name('alumnos.crear');
+    Route::get('/carreras/crear', CrearCarrera::class)->name('carreras.index');
+    Route::get('/alumnos/crear', CrearAlumno::class)->name('alumnos.index');
+    Route::get('/empresas/crear')->name('empresas.index');
 
 });
 
