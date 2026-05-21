@@ -10,11 +10,11 @@ Route::get('/', function () {
 });
 
 Route::prefix('admin')->name('admin.')->group(function(){
-
+    Route::view('/','admin.dashboard')->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/carreras/crear', CrearCarrera::class)->name('carreras.index');
-    Route::get('/alumnos/crear', CrearAlumno::class)->name('alumnos.index');
-    Route::get('/empresas/crear')->name('empresas.index');
+    Route::get('/carreras/index', CrearCarrera::class)->name('carreras.index');
+    Route::get('/alumnos/index', CrearAlumno::class)->name('alumnos.index');
+    Route::get('/empresas/index')->name('empresas.index');
 
 });
 
