@@ -6,13 +6,15 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Alumno;
 use App\Models\Carrera;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 
 class CrearAlumno extends Component
 {
-    use WithPagination; // Paginación asíncrona automática
+    use WithPagination;
 
-    // Propiedades para capturar los datos del formulario
     public $alumno_id = null;
     public $carrera_id = '';
     public $nombre = '';
@@ -23,15 +25,14 @@ class CrearAlumno extends Component
     public $semestre = '';
     public $promedio = '';
 
-    // Estados de control para los Modales
     public $mostrarModalCrear = false;
     public $mostrarModalEditar = false;
     public $mostrarModalEliminar = false;
 
-    // Reglas de validación dinámicas adaptadas a PostgreSQL
     protected function rules()
     {
-        $reglaMatricula = 'required|string|max:20|unique:alumnos,matricula';
+        $reglaMatricula = 'required|integer|digits_between:9,20|unique:alumnos,matricula';
+        $username = (string) $this->matricula;
         
         if ($this->alumno_id) {
             $reglaMatricula .= ',' . $this->alumno_id;
@@ -42,7 +43,14 @@ class CrearAlumno extends Component
             'nombre' => 'required|string|max:255',
             'ap_pat' => 'required|string|max:255',
             'ap_mat' => 'required|string|max:255',
-            'matricula' => $reglaMatricula,
+            'matricula' => [
+                $reglaMatricula,
+                Rule::unique('users', 'username')->ignore(
+                    Alumno::find($this->alumno_id)?->user_id
+                )->where(function ($query) use ($username) {
+                    return $query->where('username', $username);
+                }),
+            ],
             'telefono' => 'nullable|string|max:15',
             'semestre' => 'nullable|integer|min:1|max:12',
             'promedio' => 'nullable|numeric|between:0,10.00',
@@ -65,7 +73,6 @@ class CrearAlumno extends Component
         $this->resetPage();
     }
 
-    // CREAR 
     public function abrirModalCrear()
     {
         $this->resetValidation();
@@ -78,22 +85,34 @@ class CrearAlumno extends Component
         $this->alumno_id = null;
         $this->validate();
 
-        Alumno::create([
-            'carrera_id' => $this->carrera_id,
-            'nombre' => $this->nombre,
-            'ap_pat' => $this->ap_pat,
-            'ap_mat' => $this->ap_mat,
-            'matricula' => $this->matricula,
-            'telefono' => $this->telefono ?: null,
-            'semestre' => $this->semestre ?: null,
-            'promedio' => $this->promedio ?: null,
-        ]);
+        DB::transaction(function () {
+            $username = (string) $this->matricula;
+
+            $user = User::create([
+                'name' => trim($this->nombre . ' ' . $this->ap_pat . ' ' . $this->ap_mat),
+                'email' => 'alumno' . $username . '@serviciosocial.local',
+                'username' => $username,
+                'password' => $username,
+                'role' => 'alumno',
+            ]);
+
+            Alumno::create([
+                'user_id' => $user->id,
+                'carrera_id' => $this->carrera_id,
+                'nombre' => $this->nombre,
+                'ap_pat' => $this->ap_pat,
+                'ap_mat' => $this->ap_mat,
+                'matricula' => $this->matricula,
+                'telefono' => $this->telefono ?: null,
+                'semestre' => $this->semestre ?: null,
+                'promedio' => $this->promedio ?: null,
+            ]);
+        });
 
         $this->mostrarModalCrear = false;
-        session()->flash('mensaje', '¡Alumno registrado correctamente!');
+        session()->flash('mensaje', '¡Alumno registrado correctamente! Usuario y contraseña inicial: ' . $this->matricula);
     }
 
-    // EDITAR
     public function abrirModalEditar($id)
     {
         $this->resetValidation();
@@ -116,23 +135,35 @@ class CrearAlumno extends Component
     {
         $this->validate();
 
-        $alumno = Alumno::findOrFail($this->alumno_id);
-        $alumno->update([
-            'carrera_id' => $this->carrera_id,
-            'nombre' => $this->nombre,
-            'ap_pat' => $this->ap_pat,
-            'ap_mat' => $this->ap_mat,
-            'matricula' => $this->matricula,
-            'telefono' => $this->telefono ?: null,
-            'semestre' => $this->semestre ?: null,
-            'promedio' => $this->promedio ?: null,
-        ]);
+        DB::transaction(function () {
+            $alumno = Alumno::findOrFail($this->alumno_id);
+            $user = User::findOrFail($alumno->user_id);
+            $username = (string) $this->matricula;
+
+            $user->update([
+                'name' => trim($this->nombre . ' ' . $this->ap_pat . ' ' . $this->ap_mat),
+                'email' => 'alumno' . $username . '@serviciosocial.local',
+                'username' => $username,
+                'password' => $username,
+                'role' => 'alumno',
+            ]);
+
+            $alumno->update([
+                'carrera_id' => $this->carrera_id,
+                'nombre' => $this->nombre,
+                'ap_pat' => $this->ap_pat,
+                'ap_mat' => $this->ap_mat,
+                'matricula' => $this->matricula,
+                'telefono' => $this->telefono ?: null,
+                'semestre' => $this->semestre ?: null,
+                'promedio' => $this->promedio ?: null,
+            ]);
+        });
 
         $this->mostrarModalEditar = false;
-        session()->flash('mensaje', '¡Datos del estudiante actualizados!');
+        session()->flash('mensaje', '¡Datos del estudiante actualizados! Usuario y contraseña actual: ' . $this->matricula);
     }
 
-    // ELIMINAR
     public function confirmarEliminar($id)
     {
         $this->alumno_id = $id;
@@ -141,7 +172,15 @@ class CrearAlumno extends Component
 
     public function eliminar()
     {
-        Alumno::destroy($this->alumno_id);
+        $alumno = Alumno::findOrFail($this->alumno_id);
+        $user = User::find($alumno->user_id);
+
+        $alumno->delete();
+
+        if ($user) {
+            $user->delete();
+        }
+
         $this->mostrarModalEliminar = false;
         session()->flash('mensaje', 'El alumno ha sido removido del sistema.');
     }

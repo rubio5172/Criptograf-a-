@@ -8,21 +8,17 @@ use Livewire\Attributes\Layout;
 
 class CrearCarrera extends Component
 {
-    // Propiedades para el formulario (Solo usamos ID y Nombre)
     public $carrera_id = null;
     public $nombre = '';
 
-    // Propiedades para controlar los Modales
     public $mostrarModalCrear = false;
     public $mostrarModalEditar = false;
     public $mostrarModalEliminar = false;
 
-    // Reglas de validación adaptadas al campo Nombre
     protected function rules()
     {
         $reglaNombre = 'required|string|min:5|max:100|unique:carreras,nombre';
 
-        // Si estamos EDITANDO (el ID ya existe en la base de datos), le decimos que ignore ese ID
         if ($this->carrera_id) {
             $reglaNombre .= ',' . $this->carrera_id;
         }
@@ -37,7 +33,7 @@ class CrearCarrera extends Component
         'nombre.min' => 'El nombre debe tener al menos 5 caracteres.',
         'nombre.unique' => 'Esta carrera ya se encuentra registrada en el sistema.',
     ];
-//Crear
+
     public function abrirModalCrear()
     {
         $this->resetValidation();
@@ -59,7 +55,6 @@ class CrearCarrera extends Component
         $this->reset(['nombre']);
     }
 
-    // --- ACCIÓN: EDITAR ---
     public function abrirModalEditar($id)
     {
         $this->resetValidation();
@@ -85,7 +80,6 @@ class CrearCarrera extends Component
         $this->reset(['carrera_id', 'nombre']);
     }
 
-    // --- ACCIÓN: ELIMINAR ---
     public function confirmarEliminar($id)
     {
         $this->carrera_id = $id;

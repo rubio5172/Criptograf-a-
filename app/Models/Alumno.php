@@ -12,6 +12,7 @@ class Alumno extends Model
     protected $table = 'alumnos';
 
     protected $fillable = [
+        'user_id',
         'carrera_id',
         'nombre',
         'ap_pat',
@@ -22,9 +23,18 @@ class Alumno extends Model
         'promedio',
     ];
 
-    //Un Alumno pertenece a una Carrera
     public function carrera()
     {
         return $this->belongsTo(Carrera::class, 'carrera_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function solicitudes()
+    {
+        return $this->hasMany(Solicitud::class, 'alumno_id');
     }
 }

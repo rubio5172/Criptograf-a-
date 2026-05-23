@@ -15,6 +15,11 @@
         </div>
     @endif
 
+    <div class="rounded-xl border border-blue-100 bg-blue-50 p-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-blue-700">Acceso del Alumno</p>
+        <p class="mt-1 text-sm text-blue-900">El usuario y la contraseña inicial del alumno serán su número de cuenta o matrícula.</p>
+    </div>
+
     <div class="bg-white rounded-xl shadow-xs border border-gray-200 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
@@ -202,8 +207,8 @@
     @if($mostrarModalEliminar)
         <div class="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50">
             <div class="bg-white rounded-xl p-6 max-w-sm w-full shadow-xl text-center border border-gray-100">
-                <div class="mx-auto w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-4 text-xl">
-                    ⚠️
+                <div class="mx-auto w-12 h-12 bg-red-50 text-red-600 rounded-full flex items-center justify-center mb-4 text-xs font-bold uppercase tracking-[0.2em]">
+                    Alerta
                 </div>
                 <h3 class="text-lg font-bold text-gray-900 mb-1">¿Remover Alumno?</h3>
                 <p class="text-sm text-gray-500 mb-6">Esta acción borrará de manera permanente el registro del estudiante.</p>
