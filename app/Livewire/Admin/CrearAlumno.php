@@ -37,7 +37,7 @@ class CrearAlumno extends Component
             'ap_pat'     => ['required', 'string', 'max:255'],
             'ap_mat'     => ['required', 'string', 'max:255'],
             
-            // 💡 Sintaxis corregida y unificada para la matrícula (Evita el choque en el validador)
+
             'matricula'  => [
                 'required', 
                 'integer', 
